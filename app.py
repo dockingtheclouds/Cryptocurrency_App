@@ -1,9 +1,10 @@
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
-from requests import Session, request
+from requests import Session
+import os
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6d5nzWlSihBXnw8v0sKR6b'
+app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
 Bootstrap(app)
 
 COIN_GECKO_URL = "https://api.coingecko.com/api/v3/coins/list?include_platform=false"
