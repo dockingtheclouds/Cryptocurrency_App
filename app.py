@@ -4,7 +4,7 @@ from requests import Session
 import os
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 Bootstrap(app)
 
 COIN_GECKO_URL = "https://api.coingecko.com/api/v3/coins/list?include_platform=false"
