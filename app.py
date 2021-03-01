@@ -41,7 +41,7 @@ def top_currencies():
     return render_template("index.html", cryptos=data)
 
 
-@app.route('/<string:crypto_name>', methods=['GET'])
+@app.route('/<string:crypto_name>')
 def get_more_info(crypto_name):
     crypto_id = cryptos.get(crypto_name)
     return render_template("ticker.html", _id=crypto_id, name=crypto_name)
