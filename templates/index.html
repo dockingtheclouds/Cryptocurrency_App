@@ -1,0 +1,64 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block styles %}
+
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
+
+{% block title %}Cryptocurrencies{% endblock %}
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <h1>Top 20 Cryptocurrencies</h1>
+
+                <table class="table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Symbol</th>
+                        <th>Price</th>
+                        <th>1 hour change</th>
+                        <th>24 hour change</th>
+                        <th>7 day change</th>
+                    </tr>
+
+                    {% for row in cryptos %}
+                        <tr>
+                            <td><a href="{{ url_for('get_more_info', crypto_name=row['name']) }}"> {{ row['name'] }} </a></td>
+                            <td>{{ row['symbol'] }}</td>
+                            <td>{{ "$%.2f"|format(row['quote']['USD']['price']) }}</td>
+
+                            {% if "-" in "$%.2f"|format(row['quote']['USD']['percent_change_1h']) %}
+                                <td style="color: red">{{ "%.2f"|format(row['quote']['USD']['percent_change_1h']) }}</td>
+                            {% else %}
+                                <td style="color: green">{{ "%.2f"|format(row['quote']['USD']['percent_change_1h']) }}</td>
+                            {% endif %}
+
+                            {% if "-" in "$%.2f"|format(row['quote']['USD']['percent_change_24h']) %}
+                                <td style="color: red">{{ "%.2f"|format(row['quote']['USD']['percent_change_24h']) }}</td>
+                            {% else %}
+                                <td style="color: green">{{ "%.2f"|format(row['quote']['USD']['percent_change_24h']) }}</td>
+                            {% endif %}
+
+                            {% if "-" in "$%.2f"|format(row['quote']['USD']['percent_change_7d']) %}
+                                <td style="color: red">{{ "%.2f"|format(row['quote']['USD']['percent_change_7d']) }}</td>
+                            {% else %}
+                                <td style="color: green">{{ "%.2f"|format(row['quote']['USD']['percent_change_7d']) }}</td>
+                            {% endif %}
+
+                        </tr>
+                    {% endfor %}
+                </table>
+                {#                <p><a href="{{ url_for('home') }}">Return to index page</a></p>#}
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
